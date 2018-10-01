@@ -1,0 +1,41 @@
+header {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background-color: black;
+  height: auto;
+}
+
+h1 {
+  text-decoration-line: overline;
+  margin: 2%;
+  width: inherit;
+  color: white;
+  border: 2px solid lightgreen;
+  padding: 2rem;
+}
+div {
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  font-size: 20px;
+}
+input {
+  margin-top: 0;
+  padding-top: 0;
+  font-size: 16px;
+  padding: 1rem;
+  width: 12rem;
+  height: 3.5rem;
+}
+button {
+  font-size: 16px;
+  padding: 1rem;
+  margin-left: 25%; 
+
+}
+.days input {
+  background-color: green;
+  color: white;
+  width: 8rem;
+  height: 3.5rem;
+  border-style: ridge;
+}
