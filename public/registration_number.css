@@ -13,6 +13,9 @@ h1 {
   border: 2px solid lightgreen;
   padding: 2rem;
 }
+h4 {
+  margin-bottom: 0%; 
+}
 div {
   padding-left: 1rem;
   padding-bottom: 1rem;
@@ -32,6 +35,19 @@ button {
   margin-left: 25%; 
 
 }
+p {
+  margin-top: 0%;
+}
+.green {
+  color: green;
+  font-weight: bold;
+}
+.red {
+  color: red;
+  font-weight: bold;
+}
+
+
 .days input {
   background-color: green;
   color: white;

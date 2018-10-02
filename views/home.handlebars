@@ -6,10 +6,11 @@
   <form action="/waiterInput" method="post">
   <div class="">
   <h4><label for="nameInput">Please Enter Your Name:</label></h4>
-  <input type="text" name="nameInput">
+  <input type="text" name="nameInput" pattern="[A-Za-z- ]{2,}" title="Please enter your name only">
   </div>
   <div class="days">
-  <h4><label for="daysInput">Please Select All Days You Are Available</label></h4>
+  <h4><label for="daysInput">Please Select 3 Shifts</label></h4>
+  <p>Available days are highlighted in <span class="green">green</span>. Unavailable shifts are marked as <span class="red">red</span>.</p>
   <input type="button" name="daysBtn" value="Monday">
   <input type="button" name="daysBtn" value="Tuesday">
   <input type="button" name="daysBtn" value="Wednesday">
