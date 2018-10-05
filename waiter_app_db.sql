@@ -3,7 +3,7 @@ drop table if exists waiter_shifts;
 
 create table waiters(
     id serial not null primary key,
-    waiter_name text not null unique
+    waiter_name text not null
 );
 
 create table waiter_shifts(

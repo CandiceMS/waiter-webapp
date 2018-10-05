@@ -1,5 +1,23 @@
-module.exports = function(pool) {
-        
+ module.exports = function(pool) {
+  
+//   async function addName(nameInput) {
+
+//     if (nameInput == "") {
+//       return ;
+//     }
+
+//     let name = nameInput.toLowerCase();
+//     let nameRow = await pool.query('select * from waiters where waiter_name = $1', [name])
+//     if (nameRow.rowCount === 0){
+//       await pool.query('insert into waiters(waiter_name) values $1', [name])
+//     }
+//   }
+
+//   async function addShifts(daysInput){
+    
+//   }
+
+
         async function storeInDB(regInput, locationInput) {
 
           if (regInput == "" || !locationInput) {

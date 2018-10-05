@@ -21,7 +21,7 @@ if(process.env.DATABASE_URL){
   useSSL = true;
 }
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://coder:pg123@localhost:5432/registration_numbersDB'
+const connectionString = process.env.DATABASE_URL || 'postgresql://coder:pg123@localhost:5432/waiter_app'
 
 const pool = new Pool({
   connectionString,

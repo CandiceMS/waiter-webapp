@@ -38,4 +38,5 @@ module.exports = function(factory){
         filtered,
         clear
     }
+
 };

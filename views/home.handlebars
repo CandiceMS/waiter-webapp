@@ -3,21 +3,21 @@
 <h1>Code and Coffee</h1>
 </header>
 <div class="">
-  <form action="/waiterInput" method="post">
+  <form action="/submit_input" method="post">
   <div class="">
   <h4><label for="nameInput">Please Enter Your Name:</label></h4>
-  <input type="text" name="nameInput" pattern="[A-Za-z- ]{2,}" title="Please enter your name only">
+  <input type="text" name="nameInput" pattern="[A-Za-z- ]{2,}" title="Please enter your name only" required>
   </div>
   <div class="days">
   <h4><label for="daysInput">Please Select 3 Shifts</label></h4>
   <p>Available days are highlighted in <span class="green">green</span>. Unavailable shifts are marked as <span class="red">red</span>.</p>
-  <input type="button" name="daysBtn" value="Monday">
-  <input type="button" name="daysBtn" value="Tuesday">
-  <input type="button" name="daysBtn" value="Wednesday">
-  <input type="button" name="daysBtn" value="Thursday">
-  <input type="button" name="daysBtn" value="Friday">
-  <input type="button" name="daysBtn" value="Saturday">
-  <input type="button" name="daysBtn" value="Sunday">
+  <input type="button" name="mondayBtn" value="Monday">
+  <input type="button" name="tuesdayBtn" value="Tuesday">
+  <input type="button" name="wednesdayBtn" value="Wednesday">
+  <input type="button" name="thursdayBtn" value="Thursday">
+  <input type="button" name="fridayBtn" value="Friday">
+  <input type="button" name="saturdayBtn" value="Saturday">
+  <input type="button" name="sundayBtn" value="Sunday">
   </div>
   <button type="submit">Submit My Selections</button>
   </form>
