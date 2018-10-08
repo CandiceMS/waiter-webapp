@@ -59,8 +59,8 @@ app.get('/', function(req, res) {
   res.render('home');
 });
 
-app.post('/registration_numbers', waiterRoutesFactory.registrations);
+app.post('/submit_input', waiterRoutesFactory.submitShifts);
 
-app.get('/filter/:town_name', waiterRoutesFactory.filtered);
+// app.get('/filter/:town_name', waiterRoutesFactory.filtered);
 
 app.post('/clear', waiterRoutesFactory.clear);

@@ -1,15 +1,8 @@
-drop table if exists waiters CASCADE;
-drop table if exists waiter_shifts;
-
-create table waiters(
-    id serial not null primary key,
-    waiter_name text not null
-);
+drop table waiter_shifts;
 
 create table waiter_shifts(
     id serial not null primary key,
-    waiter_id int,
-    foreign key (waiter_id) references waiters(id),
+    waiter_name text not null,
     monday boolean not null default false,
     tuesday boolean not null default false,
     wednesday boolean not null default false,
@@ -18,5 +11,6 @@ create table waiter_shifts(
     saturday boolean not null default false,
     sunday boolean not null default false
 );
+
 
 

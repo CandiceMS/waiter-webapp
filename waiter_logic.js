@@ -1,103 +1,82 @@
  module.exports = function(pool) {
-  
-//   async function addName(nameInput) {
 
-//     if (nameInput == "") {
-//       return ;
-//     }
+  async function storeInDB(nameInput, daysInput) {
 
-//     let name = nameInput.toLowerCase();
-//     let nameRow = await pool.query('select * from waiters where waiter_name = $1', [name])
-//     if (nameRow.rowCount === 0){
-//       await pool.query('insert into waiters(waiter_name) values $1', [name])
-//     }
-//   }
+    if (nameInput == "") {
+      return ;
+    }
 
-//   async function addShifts(daysInput){
-    
-//   }
-
-
-        async function storeInDB(regInput, locationInput) {
-
-          if (regInput == "" || !locationInput) {
-            return ;
-          }
-
-          let reg = regInput.toLowerCase();
-          let townCode = '';
-
-          if(locationInput === "cape town") {
-            townCode = "ca";
-          }
-          if(locationInput === "paarl") {
-            townCode = "cj";
-          }
-          if(locationInput === "bellville") {
-            townCode = "cy";
-          }
-          if(locationInput === "stellenbosch") {
-            townCode = "cl";
-          }
-
-          let rowResult = await pool.query('select * from towns where town_name = $1', [locationInput])
-          let rowResult2 = await pool.query('select * from reg_numbers where reg_number = $1', [reg])
-
-          if(rowResult.rowCount === 0){
-            await pool.query('insert into towns(town_name, town_code) values($1, $2)', [locationInput, townCode])
-          }
-             
-          let townColumn = await pool.query('select id from towns where town_name = $1', [locationInput])
-          let townId = townColumn.rows[0].id;
-
-          // let townCodeCol = await pool.query('select town_code from towns where town_name = $1', [locationInput])
-
-          if(rowResult2.rowCount === 0){
-           if(reg.startsWith(townCode)){
-             await pool.query('insert into reg_numbers(reg_number, town_id) values($1, $2)', [reg, townId])
-              return "You added a registration number for this town!"
-            }
-           else {
-              return "Sorry. This is not a valid registration number for this town"
-            }
-          }
-        }
-
-        async function returnRegNumbers() {
-          let returnRows = await pool.query('select * from reg_numbers')
-            return returnRows.rows;
-        }
-
-        async function returnTowns() {
-            let returnRows = await pool.query('select * from towns')
-              return returnRows.rows;
-          }
-
-        async function returnFilter(locationInput) {
-          let townColumn = await pool.query('select id from towns where town_name = $1', [locationInput])
-             let townId = townColumn.rows[0].id;
-          let filterReg = await pool.query('select reg_number from reg_numbers where reg_numbers.town_id = $1', [townId])
-            return filterReg.rows;
-        }
-
-        async function resetReg() {
-          let resetRegNumbers = await pool.query('delete from reg_numbers');
-          return resetRegNumbers.rows;
-        }
-        async function resetTowns(){
-            let reset = await pool.query('delete from towns');
-            return reset.rows;
-        }
-      
-      return {
-          storeInDB,
-          returnRegNumbers,
-          returnTowns,
-          returnFilter,
-          resetReg,
-          resetTowns
-        }
+    let name = nameInput.toLowerCase();
+    let nameRow = await pool.query('select * from waiter_shifts where waiter_name = $1', [name])
+      if (nameRow.rowCount === 0){
+        await pool.query('insert into waiter_shifts(waiter_name) values $1', [name])
       }
+
+      if(mondayBtn) {
+        await pool.query('update waiter_shifts set monday = $1 where waiter_name = $2', [true, name])
+      }
+      if(tuesdayBtn) {
+        await pool.query('update waiter_shifts set tuesday = $1 where waiter_name = $2', [true, name])
+      }
+      if(wednesdayBtn) {
+        await pool.query('update waiter_shifts set wednesday = $1 where waiter_name = $2', [true, name])
+      }
+      if(thursdayBtn) {
+        await pool.query('update waiter_shifts set thursday = $1 where waiter_name = $2', [true, name])
+      }
+      if(fridayBtn) {
+        await pool.query('update waiter_shifts set friday = $1 where waiter_name = $2', [true, name])
+      }
+      if(saturdayBtn) {
+        await pool.query('update waiter_shifts set saturday = $1 where waiter_name = $2', [true, name])
+      }
+      if(sundayBtn) {
+        await pool.query('update waiter_shifts set sunday = $1 where waiter_name = $2', [true, name])
+      }
+
+      return "Thank you " + nameInput + ", your shifts have been saved"
+   }
+
+  async function returnAllWaiters() {
+    let returnWaiters = await pool.query('select * from waiter_shifts')
+      return returnWaiters.rows;
+  }
+
+  async function returnAllDays() {
+    let returnDays = await pool.query('select * from waiter_shifts where true')
+    return returnDays.rows;
+  }
+
+  async function returnDay(shift) {
+    let returnShift = await pool.query('select * from waiter_shifts where $1 = true', [shift])
+    return returnShift.rows;
+  }
+
+  async function returnWaiterShifts(name) {
+    let waiterRow = await pool.query('select * from waiter_shifts where waiter_name = $1 and $2 = true',[name, daysInput])
+    return waiterRow.rows[0];    
+  }
+  
+  async function resetTable(){
+      let reset = await pool.query('delete from waiter_shifts');
+      return reset.rows;
+  }
+
+return {
+    storeInDB,
+    returnAllWaiters,
+    returnAllDays,
+    returnDay,
+    returnWaiterShifts,
+    resetTable
+  }
+}
+
+    // let idColumn = await pool.query('select id from waiters where waiter_name = $1', [name])
+    // let waiterId = idColumn.rows[0].id;
+    //   await pool.query('insert into waiter_shifts(waiter_id) values $1', [waiterId])
+  
+
       
       
       
