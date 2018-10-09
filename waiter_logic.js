@@ -9,32 +9,32 @@
     let name = nameInput.toLowerCase();
     let nameRow = await pool.query('select * from waiter_shifts where waiter_name = $1', [name])
       if (nameRow.rowCount === 0){
-        await pool.query('insert into waiter_shifts(waiter_name) values $1', [name])
+        await pool.query('insert into waiter_shifts(waiter_name) values($1)', [name])
       }
 
-      if(mondayBtn) {
-        await pool.query('update waiter_shifts set monday = $1 where waiter_name = $2', [true, name])
+      if(daysInput.monday) {
+        await pool.query('update waiter_shifts set monday = true where waiter_name = $1', [name])
       }
-      if(tuesdayBtn) {
-        await pool.query('update waiter_shifts set tuesday = $1 where waiter_name = $2', [true, name])
+      if(daysInput.tuesday) {
+        await pool.query('update waiter_shifts set tuesday = true where waiter_name = $1', [name])
       }
-      if(wednesdayBtn) {
-        await pool.query('update waiter_shifts set wednesday = $1 where waiter_name = $2', [true, name])
+      if(daysInput.wednesday) {
+        await pool.query('update waiter_shifts set wednesday = true where waiter_name = $1', [name])
       }
-      if(thursdayBtn) {
-        await pool.query('update waiter_shifts set thursday = $1 where waiter_name = $2', [true, name])
+      if(daysInput.thursday) {
+        await pool.query('update waiter_shifts set thursday = true where waiter_name = $1', [name])
       }
-      if(fridayBtn) {
-        await pool.query('update waiter_shifts set friday = $1 where waiter_name = $2', [true, name])
+      if(daysInput.friday) {
+        await pool.query('update waiter_shifts set friday = true where waiter_name = $1', [name])
       }
-      if(saturdayBtn) {
-        await pool.query('update waiter_shifts set saturday = $1 where waiter_name = $2', [true, name])
+      if(daysInput.saturday) {
+        await pool.query('update waiter_shifts set saturday = true where waiter_name = $1', [name])
       }
-      if(sundayBtn) {
-        await pool.query('update waiter_shifts set sunday = $1 where waiter_name = $2', [true, name])
+      if(daysInput.sunday) {
+        await pool.query('update waiter_shifts set sunday = true where waiter_name = $1', [name])
       }
 
-      return "Thank you " + nameInput + ", your shifts have been saved"
+      return " Thank you " + nameInput + ". Your shifts have been saved"
    }
 
   async function returnAllWaiters() {
@@ -64,10 +64,10 @@
 
 return {
     storeInDB,
-    returnAllWaiters,
-    returnAllDays,
-    returnDay,
-    returnWaiterShifts,
+     returnAllWaiters,
+     returnAllDays,
+     returnDay,
+     returnWaiterShifts,
     resetTable
   }
 }

@@ -6,22 +6,24 @@
   <form action="/submit_input" method="post">
   <div class="">
   <h4><label for="nameInput">Please Enter Your Name:</label></h4>
-  <input type="text" name="nameInput" pattern="[A-Za-z- ]{2,}" title="Please enter your name only" required>{{confirm}}
+  <input type="text" name="nameInput" pattern="[A-Za-z- ]{2,}" title="Please enter your name only"> {{confirm}}
   </div>
   <div class="days">
   <fieldset>
   <legend><h4>Please Select 3 Shifts</h4></legend>
   <p>Available days are highlighted in <span class="green">green</span>. Unavailable shifts are marked as <span class="red">red</span>.</p>
-  <button><input type="checkbox" name="daysInput" id="mondayBtn"><br>Monday</button>
-  <button><input type="checkbox" name="daysInput" id="tuesdayBtn"><br>Tuesday</button> 
-  <button><input type="checkbox" name="daysInput" id="wednesdayBtn"><br>Wednesday</button> 
-  <button><input type="checkbox" name="daysInput" id="thursdayBtn"><br>Thursday</button>
-  <button><input type="checkbox" name="daysInput" id="fridayBtn"><br>Friday</button> 
-  <button><input type="checkbox" name="daysInput" id="saturdayBtn"><br>Saturday</button>
-  <button><input type="checkbox" name="daysInput" id="sundayBtn"><br>Sunday</button>
+  <button><input type="checkbox" name="daysInput" id="mondayBtn" value="monday"><br>Monday</button>
+  <button><input type="checkbox" name="daysInput" id="tuesdayBtn" value="tuesday"><br>Tuesday</button> 
+  <button><input type="checkbox" name="daysInput" id="wednesdayBtn" value="wednesday"><br>Wednesday</button> 
+  <button><input type="checkbox" name="daysInput" id="thursdayBtn" value="thursday"><br>Thursday</button>
+  <button><input type="checkbox" name="daysInput" id="fridayBtn" value="friday"><br>Friday</button> 
+  <button><input type="checkbox" name="daysInput" id="saturdayBtn" value="saturday"><br>Saturday</button>
+  <button><input type="checkbox" name="daysInput" id="sundayBtn" value="sunday"><br>Sunday</button>
   </fieldset>
   </div>
   <button type="submit">Submit My Selections</button>
+  </form>
+  <form action="/clear" method="post">
   <button type="submit" name="reset">Reset</button>
   </form>
   <hr>

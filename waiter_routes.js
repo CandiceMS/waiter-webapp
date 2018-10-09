@@ -16,7 +16,7 @@ module.exports = function(factory){
         console.log("v4 "+waiterShifts); 
        res.render('home', {
          confirm: await factory.storeInDB(name, shifts)  
-        //  waiterShifts: await factory.returnWaiterShifts(name)         
+        //   waiterShifts: await factory.returnWaiterShifts(name)         
        });
      }
 
