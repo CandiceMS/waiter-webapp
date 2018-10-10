@@ -11,9 +11,9 @@
       if (nameRow.rowCount === 0){
         await pool.query('insert into waiter_shifts(waiter_name) values($1)', [name])
       }
-
+    
       if(daysInput.monday) {
-        await pool.query('update waiter_shifts set monday = true where waiter_name = $1', [name])
+        await pool.query('update waiter_shifts set monday = $1 where waiter_name = $2', [true, name])
       }
       if(daysInput.tuesday) {
         await pool.query('update waiter_shifts set tuesday = true where waiter_name = $1', [name])
