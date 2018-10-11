@@ -12,7 +12,9 @@ module.exports = function(factory){
      }
 
     async function clear(req, res) {
-        await factory.resetTable();
+        await factory.resetWaiterShifts();
+        await factory.resetShifts();
+        await factory.resetWaiters();
        res.redirect('/');
      } 
      
