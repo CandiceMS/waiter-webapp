@@ -17,10 +17,6 @@
         await pool.query('insert into waiters(waiter_name) values($1)', [name])
       }
 
-    let waiter_Id = await pool.query('select id from waiters where waiter_name = $1', [name]);
-    let waiterId = waiter_Id.rows[0].id;
-    await pool.query('insert into waiter_shifts(waiter_id) values($1)', [waiterId])
-
     if(daysInput.length > 0) {
       for (let i = 0; i < array.length; i++) {
         let day = daysInput[i];
@@ -30,17 +26,20 @@
         }
         let shift_Id = await pool.query('select id from shifts where shift = $1', [day])
         let shiftId = shift_Id.rows[0].id;
-        await pool.query('insert into waiter_shifts(shift_id) values($1)', [shiftId])
+
+        let waiter_Id = await pool.query('select id from waiters where waiter_name = $1', [name]);
+        let waiterId = waiter_Id.rows[0].id;
+
+        await pool.query('insert into waiter_shifts(waiter_id, shift_id) values($1, $2)', [waiterId, shiftId])
       }
       return " Thank you " + nameInput + ". Your shifts have been saved"
     }
     else {
       return "Please make a selection from the available shifts"
-    }     
+    }
+    
    }
 
-  
-  
   async function resetWaiterShifts(){
       let reset = await pool.query('delete from waiter_shifts');
       return reset.rows;
@@ -61,10 +60,6 @@ return {
     resetWaiters
   }
 }
-
-    // let idColumn = await pool.query('select id from waiters where waiter_name = $1', [name])
-    // let waiterId = idColumn.rows[0].id;
-    //   await pool.query('insert into waiter_shifts(waiter_id) values $1', [waiterId])
   
 
 
