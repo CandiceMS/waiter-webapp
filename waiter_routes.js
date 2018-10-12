@@ -2,10 +2,11 @@ module.exports = function(factory){
 
     async function submitShifts(req, res) {
         let name = req.body.nameInput;
-         let shifts = req.body.daysInput;
-         console.log(shifts);
+        let shifts = req.body.daysInput;
 
-       
+        if(shifts == undefined){
+            req.flash('alertShifts', 'You have not selected any shifts')
+        }
        res.render('home', {
          confirm: await factory.storeInDB(name, shifts)           
        });

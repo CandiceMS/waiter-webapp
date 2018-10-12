@@ -6,19 +6,20 @@
   <form action="/submit_input" method="post">
   <div class="">
   <h4><label for="nameInput">Please Enter Your Name:</label></h4>
-  <input type="text" name="nameInput" pattern="[A-Za-z- ]{2,}" title="Please enter your name only"> {{confirm}}
+  <input type="text" name="nameInput" pattern="[A-Za-z- ]{2,}" title="Please enter your name only" required> 
+  <div class="alerts">{{messages.alertShifts}}{{confirm}}</div>
   </div>
   <div class="days">
   <fieldset>
   <legend><h4>Please Select 3 Shifts</h4></legend>
   <p>Available days are highlighted in <span class="green">green</span>. Unavailable shifts are marked as <span class="red">red</span>.</p>
-  <button><input type="checkbox" name="mondayBtn" value="monday"><br>Monday</button>
-  <button><input type="checkbox" name="tuesdayBtn" value="tuesday"><br>Tuesday</button> 
-  <button><input type="checkbox" name="wednesdayBtn" value="wednesday"><br>Wednesday</button> 
-  <button><input type="checkbox" name="thursdayBtn" value="thursday"><br>Thursday</button>
-  <button><input type="checkbox" name="fridayBtn" value="friday"><br>Friday</button> 
-  <button><input type="checkbox" name="saturdayBtn" value="saturday"><br>Saturday</button>
-  <button><input type="checkbox" name="sundayBtn" value="sunday"><br>Sunday</button>
+  <button><input type="checkbox" name="daysInput" value="monday"><br>Monday</button>
+  <button><input type="checkbox" name="daysInput" value="tuesday"><br>Tuesday</button> 
+  <button><input type="checkbox" name="daysInput" value="wednesday"><br>Wednesday</button> 
+  <button><input type="checkbox" name="daysInput" value="thursday"><br>Thursday</button>
+  <button><input type="checkbox" name="daysInput" value="friday"><br>Friday</button> 
+  <button><input type="checkbox" name="daysInput" value="saturday"><br>Saturday</button>
+  <button><input type="checkbox" name="daysInput" value="sunday"><br>Sunday</button>
   </fieldset>
   </div>
   <button type="submit">Submit My Selections</button>

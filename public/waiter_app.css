@@ -63,5 +63,10 @@ fieldset {
   width: 1.5rem;
   height: 1.5rem;
 }
+.alerts {
+  color: orangered;
+  float: right;
+  margin-right: 50%;
+}
 
 

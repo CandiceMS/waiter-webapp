@@ -2,8 +2,8 @@
 
   async function storeInDB(nameInput, daysInput) {
 
-    if (nameInput == "") {
-      return ;
+    if (nameInput == "" || daysInput == undefined) {
+      return;
     }
 
     if (daysInput && (typeof daysInput === 'string')) {
@@ -18,7 +18,7 @@
       }
 
     if(daysInput.length > 0) {
-      for (let i = 0; i < array.length; i++) {
+      for (let i = 0; i < daysInput.length; i++) {
         let day = daysInput[i];
         let shift = await pool.query('select * from shifts where shift = $1', [day])
         if(shift.rowCount === 0){
@@ -36,8 +36,7 @@
     }
     else {
       return "Please make a selection from the available shifts"
-    }
-    
+    } 
    }
 
   async function resetWaiterShifts(){
