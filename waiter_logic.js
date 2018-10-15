@@ -34,10 +34,26 @@
       }
       return " Thank you " + nameInput + ". Your shifts have been saved"
     }
-    else {
-      return "Please make a selection from the available shifts"
-    } 
+    // else {
+    //   return "Please make a selection from the available shifts"
+    // } 
    }
+
+   async function allShifts() {
+     let days = await pool.query('select shift from shifts')
+     return days.rows;
+   }
+
+   async function getWaiterShifts(day){
+     let findDay = await pool.query('select * from shifts where shift = $1', [day])
+     let dayId = findDay.rows[0].id;
+     let findShift = await pool.query('select * from waiter_shifts where shift_id = $1', [dayId])
+     for (let i = 0; i < findShift.length; i++) {
+       let element = findShift[i];
+       let waiter = await pool.query('select waiter_name from waiters where id = $1', [element])
+       return waiter[0].rows
+     }
+   };
 
   async function resetWaiterShifts(){
       let reset = await pool.query('delete from waiter_shifts');
@@ -54,6 +70,8 @@ async function resetWaiters(){
 
 return {
     storeInDB,
+    allShifts,
+    getWaiterShifts,
     resetWaiterShifts,
     resetShifts,
     resetWaiters
