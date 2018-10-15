@@ -12,6 +12,13 @@ module.exports = function(factory){
        });
      }
 
+     async function returnWaiterShifts(req, res) {
+         res.render('shifts', {
+             shifts: await factory.allShifts(),
+             waiter_shifts: await factory.getWaiterShifts(shifts)
+         });
+     }
+
     async function clear(req, res) {
         await factory.resetWaiterShifts();
         await factory.resetShifts();
@@ -21,6 +28,7 @@ module.exports = function(factory){
      
     return {
         submitShifts,
+        returnWaiterShifts,
         clear
     }
 };

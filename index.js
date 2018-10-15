@@ -60,7 +60,7 @@ app.get('/', function(req, res) {
 });
 
 app.post('/submit_input', waiterRoutesFactory.submitShifts);
-
-// app.get('/filter/:town_name', waiterRoutesFactory.filtered);
+app.get('/shifts', waiterRoutesFactory.returnWaiterShifts);
+//  app.get('/filter/:town_name', waiterRoutesFactory.filtered);
 
 app.post('/clear', waiterRoutesFactory.clear);

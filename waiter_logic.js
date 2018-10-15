@@ -44,15 +44,18 @@
      return days.rows;
    }
 
-   async function getWaiterShifts(day){
-     let findDay = await pool.query('select * from shifts where shift = $1', [day])
-     let dayId = findDay.rows[0].id;
-     let findShift = await pool.query('select * from waiter_shifts where shift_id = $1', [dayId])
-     for (let i = 0; i < findShift.length; i++) {
-       let element = findShift[i];
-       let waiter = await pool.query('select waiter_name from waiters where id = $1', [element])
-       return waiter[0].rows
-     }
+   async function getWaiterShifts(days){
+     for (let i = 0; i < days.length; i++) {
+       let day = days[i];
+        let findDay = await pool.query('select * from shifts where shift = $1', [day])
+        let dayId = findDay.rows[0].id;
+        let findShift = await pool.query('select * from waiter_shifts where shift_id = $1', [dayId])
+        for (let i = 0; i < findShift.length; i++) {
+          let element = findShift[i];
+          let waiter = await pool.query('select waiter_name from waiters where id = $1', [element])
+          return waiter[0].rows
+        }
+      }
    };
 
   async function resetWaiterShifts(){
