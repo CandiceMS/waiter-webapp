@@ -45,6 +45,9 @@
    }
 
    async function getWaiterShifts(days){
+    if (days && (typeof days === 'string')) {
+      days = [days];
+    }
      for (let i = 0; i < days.length; i++) {
        let day = days[i];
         let findDay = await pool.query('select * from shifts where shift = $1', [day])
