@@ -41,19 +41,24 @@ describe('Add and display waiters, shifts and their relation', function(){
     });
     it('should not add the waiter name because no shifts have been selected ', async function(){
         let noAdd = await factoryLogic.storeInDB('Bob', false);
-          assert.equal(noAdd, "You have not selected any shifts");
+          assert.equal(noAdd, 'Please make a selection from the available shifts');
     });
-    it('should return all shifts entered by users', async function(){
-      await factoryLogic.storeInDB('Jane', ['friday', 'saturday', 'sunday']);
-      await factoryLogic.storeInDB('John', ['wednesday', 'thursday', 'friday']);
-      assert.deepEqualqual(['wednesday', 'thursday', 'friday', 'saturday', 'sunday'], await factoryLogic.allShifts());
+
+
+    it('should return all days', async function(){
+      // await factoryLogic.storeInDB('Jane', ['friday', 'saturday', 'sunday']);
+      // await factoryLogic.storeInDB('John', ['wednesday', 'thursday', 'friday']);
+      let shiftDays = await factoryLogic.allShifts();
+      assert.deepEqual(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'], shiftDays);
     });
+
     it('should NOT add any values to the database as the requirements are incomplete', async function(){
         await factoryLogic.storeInDB('', 'sunday');
         await factoryLogic.storeInDB('', false);
         await factoryLogic.storeInDB('Bill', false);
         let shiftsEntered = await factoryLogic.allShifts();
        assert.deepEqual([], await factoryLogic.getWaiterShifts(shiftsEntered));
+
     });
     
     // it('should return only registration numbers for the selected town', async function(){

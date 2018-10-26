@@ -1,6 +1,8 @@
  module.exports = function(pool) {
 
   async function storeInDB(nameInput, daysInput) {
+    // console.log(daysInput);
+    // console.log(nameInput);
 
     if (nameInput == "" || daysInput == undefined) {
       return;
@@ -20,10 +22,8 @@
     if(daysInput.length > 0) {
       for (let i = 0; i < daysInput.length; i++) {
         let day = daysInput[i];
-        let shift = await pool.query('select * from shifts where shift = $1', [day])
-        if(shift.rowCount === 0){
-          await pool.query('insert into shifts(shift) values($1)', [day])
-        }
+        // console.log(day);
+
         let shift_Id = await pool.query('select id from shifts where shift = $1', [day])
         let shiftId = shift_Id.rows[0].id;
 
@@ -34,14 +34,15 @@
       }
       return " Thank you " + nameInput + ". Your shifts have been saved"
     }
-    // else {
-    //   return "Please make a selection from the available shifts"
-    // } 
+    else if(daysInput == '' || daysInput == false) {
+      return "Please make a selection from the available shifts"
+    } 
    }
 
    async function allShifts() {
-     let days = await pool.query('select shift from shifts')
-     return days.rows;
+     let days = await pool.query('select shift from shifts');
+      // let shiftRows = days.rows;
+      return days.rows.shift;
    }
 
    async function getWaiterShifts(days){
