@@ -1,8 +1,6 @@
  module.exports = function(pool) {
 
   async function storeInDB(nameInput, daysInput) {
-    //  console.log(daysInput);
-    // console.log(nameInput);
 
     if (nameInput == "" || daysInput == undefined) {
       return;
@@ -22,12 +20,9 @@
     if(daysInput.length > 0) {
       for (let i = 0; i < daysInput.length; i++) {
         let day = daysInput[i];
-        //  console.log(day);
 
         let selectShift = await pool.query('select shift from shifts where shift = $1', [day])
-        // console.log("1* " + selectShift.rows[0]);
         let shiftId = selectShift.rows[0].id;
-        // console.log("[2 ]" + shiftId);
 
         let waiter_Id = await pool.query('select id from waiters where waiter_name = $1', [name]);
         let waiterId = waiter_Id.rows[0].id;
@@ -47,12 +42,9 @@
    }
 
    async function getWaiterShifts(shiftDays){
-  //  console.log(shiftDays);
-  //   console.log(days);
     
     let days = shiftDays.map(day => { return day.shift})
-// line above maps shifts to return an array of values
-    console.log(days);
+// line above maps shifts to return an array of values. in this function, day is a placeholder for shiftDays.
 
      for (let i = 0; i < days.length; i++) {
        let day = days[i];

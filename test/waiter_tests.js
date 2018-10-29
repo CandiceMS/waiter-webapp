@@ -57,11 +57,35 @@ describe('Add and display waiters, shifts and their relation', function(){
         await factoryLogic.storeInDB('Bob', false);
         let shiftsEntered = await factoryLogic.allShifts();
         let waiterShifts = await factoryLogic.getWaiterShifts(shiftsEntered);
-        console.log(waiterShifts);
        assert.deepEqual(undefined, waiterShifts);
-
     });
 
+    it('should clear all values in the waiter_shifts table in the database', async function(){
+      await factoryLogic.storeInDB('Jack', ['tuesday', 'wednesday']);
+      await factoryLogic.storeInDB('Jill', 'friday');
+      await factoryLogic.storeInDB('John', ['saturday', 'sunday']);
+      await factoryLogic.storeInDB('Sarah', ['thursday', 'monday', 'sunday']);
+     assert.deepEqual([], await factoryLogic.resetWaiterShifts());
+    });
+
+    it('should clear all values in the waiters table in the database', async function(){
+         await factoryLogic.storeInDB('Jack',true);
+         await factoryLogic.storeInDB('Jill','friday');
+         await factoryLogic.storeInDB('John', ['saturday', 'sunday']);
+         await factoryLogic.storeInDB('Sarah',['thursday', 'monday', 'sunday']);
+          await factoryLogic.resetWaiterShifts();
+        assert.deepEqual([], await factoryLogic.resetWaiters());
+    });
+
+    it('should clear all values in the shifts table in the database', async function(){
+      await factoryLogic.storeInDB('Jack',true);
+      await factoryLogic.storeInDB('Jill','friday');
+      await factoryLogic.storeInDB('John', ['saturday', 'sunday']);
+      await factoryLogic.storeInDB('Sarah',['thursday', 'monday', 'sunday']);
+       await factoryLogic.resetWaiterShifts();
+     assert.deepEqual([], await factoryLogic.resetShifts());
+    });
+  
     after(async function() {
         await pool.end();
       });
@@ -77,17 +101,4 @@ describe('Add and display waiters, shifts and their relation', function(){
 
     //     assert.deepEqual([{'reg_number': 'ca 670-901'}, {'reg_number': 'ca 687-901'}, {'reg_number': 'ca 680-000'}], await factoryRegNumbers.returnFilter('cape town'));
     // });
-    //  it('should clear all values in the reg_numbers table in the database', async function(){
-    //      await factoryLogic.storeInDB('CL 687-978','stellenbosch');
-    //      await factoryLogic.storeInDB('CA 687-945','cape town');
-    //      await factoryLogic.storeInDB('CA 680-363','cape town');
-    //      await factoryLogic.storeInDB('CY 679-589','bellville');
-    //     assert.deepEqual([], await factoryLogic.resetReg());
-    //  });
-    //  it('should clear all values in the towns table in the database', async function(){
-    //     await factoryLogic.storeInDB('CL 687-924','stellenbosch');
-    //     await factoryLogic.storeInDB('CA 687-879','cape town');
-    //     await factoryLogic.storeInDB('CA 680-112','cape town');
-    //     await factoryLogic.storeInDB('CY 679-252','bellville');
-    //    assert.deepEqual([], await factoryLogic.resetReg(), await factoryLogic.resetTowns());
-    // });
+    
