@@ -1,7 +1,7 @@
  module.exports = function(pool) {
 
   async function storeInDB(nameInput, daysInput) {
-    // console.log(daysInput);
+    //  console.log(daysInput);
     // console.log(nameInput);
 
     if (nameInput == "" || daysInput == undefined) {
@@ -17,15 +17,17 @@
     let nameRow = await pool.query('select * from waiters where waiter_name = $1', [name])
       if (nameRow.rowCount === 0){
         await pool.query('insert into waiters(waiter_name) values($1)', [name])
-      }
+      }  
 
     if(daysInput.length > 0) {
       for (let i = 0; i < daysInput.length; i++) {
         let day = daysInput[i];
-        // console.log(day);
+        //  console.log(day);
 
-        let shift_Id = await pool.query('select id from shifts where shift = $1', [day])
-        let shiftId = shift_Id.rows[0].id;
+        let selectShift = await pool.query('select shift from shifts where shift = $1', [day])
+        // console.log("1* " + selectShift.rows[0]);
+        let shiftId = selectShift.rows[0].id;
+        // console.log("[2 ]" + shiftId);
 
         let waiter_Id = await pool.query('select id from waiters where waiter_name = $1', [name]);
         let waiterId = waiter_Id.rows[0].id;
@@ -41,14 +43,17 @@
 
    async function allShifts() {
      let days = await pool.query('select shift from shifts');
-      // let shiftRows = days.rows;
-      return days.rows.shift;
+      return days.rows;
    }
 
-   async function getWaiterShifts(days){
-    if (days && (typeof days === 'string')) {
-      days = [days];
-    }
+   async function getWaiterShifts(shiftDays){
+  //  console.log(shiftDays);
+  //   console.log(days);
+    
+    let days = shiftDays.map(day => { return day.shift})
+// line above maps shifts to return an array of values
+    console.log(days);
+
      for (let i = 0; i < days.length; i++) {
        let day = days[i];
         let findDay = await pool.query('select * from shifts where shift = $1', [day])

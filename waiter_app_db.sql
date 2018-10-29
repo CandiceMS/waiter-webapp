@@ -1,11 +1,4 @@
-drop table if exists waiters CASCADE;
-drop table if exists shifts;
-drop table if exists waiter_shifts;
-
-create table waiters (
-    id serial not null primary key,
-    waiter_name text not null
-);
+drop table if exists shifts, waiters, waiter_shifts CASCADE;
 
 create table shifts(
     id serial not null primary key,
@@ -19,6 +12,13 @@ INSERT INTO shifts(shift) VALUES('thursday');
 INSERT INTO shifts(shift) VALUES('friday');
 INSERT INTO shifts(shift) VALUES('saturday');
 INSERT INTO shifts(shift) VALUES('sunday');
+
+create table waiters (
+    id serial not null primary key,
+    waiter_name text not null
+);
+
+
 
 create table waiter_shifts(
     id serial not null primary key,

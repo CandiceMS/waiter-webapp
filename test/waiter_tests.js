@@ -21,7 +21,7 @@ describe('Add and display waiters, shifts and their relation', function(){
 
     beforeEach(async function() {
         await pool.query("delete from waiter_shifts");
-        await pool.query("delete from shifts");
+        //  await pool.query("delete from shifts");
         await pool.query("delete from waiters")
       });   
 
@@ -46,22 +46,29 @@ describe('Add and display waiters, shifts and their relation', function(){
 
 
     it('should return all days', async function(){
-      // await factoryLogic.storeInDB('Jane', ['friday', 'saturday', 'sunday']);
-      // await factoryLogic.storeInDB('John', ['wednesday', 'thursday', 'friday']);
       let shiftDays = await factoryLogic.allShifts();
-      assert.deepEqual(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'], shiftDays);
+      assert.deepEqual([{shift: 'monday'}, {shift: 'tuesday'}, {shift: 'wednesday'}, {shift: 'thursday'}, {shift: 'friday'}, {shift: 'saturday'}, {shift:'sunday'}], shiftDays);
     });
 
-    it('should NOT add any values to the database as the requirements are incomplete', async function(){
+
+    it('should NOT add relevant values to the database as the requirements are incomplete', async function(){
         await factoryLogic.storeInDB('', 'sunday');
         await factoryLogic.storeInDB('', false);
-        await factoryLogic.storeInDB('Bill', false);
+        await factoryLogic.storeInDB('Bob', false);
         let shiftsEntered = await factoryLogic.allShifts();
-       assert.deepEqual([], await factoryLogic.getWaiterShifts(shiftsEntered));
+        let waiterShifts = await factoryLogic.getWaiterShifts(shiftsEntered);
+        console.log(waiterShifts);
+       assert.deepEqual(undefined, waiterShifts);
 
     });
-    
-    // it('should return only registration numbers for the selected town', async function(){
+
+    after(async function() {
+        await pool.end();
+      });
+
+   });
+
+       // it('should return only registration numbers for the selected town', async function(){
     //      await factoryLogic.storeInDB('Greg',['tuesday', 'saturday', 'sunday']);
     //      await factoryLogic.storeInDB('Candice',['tuesday', 'saturday', 'sunday']);
     //      await factoryLogic.storeInDB('Andrew',['monday', 'wednesday', 'friday']);
@@ -84,9 +91,3 @@ describe('Add and display waiters, shifts and their relation', function(){
     //     await factoryLogic.storeInDB('CY 679-252','bellville');
     //    assert.deepEqual([], await factoryLogic.resetReg(), await factoryLogic.resetTowns());
     // });
-
-    after(async function() {
-        await pool.end();
-      });
-
-   });
