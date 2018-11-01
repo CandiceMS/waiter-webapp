@@ -27,6 +27,11 @@ describe('Add and display waiters, shifts and their relation', function(){
 
     const factoryLogic = waiterLogic(pool);
 
+    // it('should add all days to the shifts table, if it is empty', async function(){
+    //   let shiftsTable = await factoryLogic.createShifts();
+    //   assert.equal(shiftsTable, 7);
+    // });
+
     it('should add the waiter name and all shifts selected', async function(){
       let waiterAdd = await factoryLogic.storeInDB('Alice','monday');
         assert.equal(waiterAdd, " Thank you Alice. Your shifts have been saved");

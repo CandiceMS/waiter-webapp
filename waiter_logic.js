@@ -1,5 +1,17 @@
  module.exports = function(pool) {
 
+  async function createShifts() {
+   let countShifts = await pool.query('select shift from shifts')
+   let dayNames = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
+    if (countShifts.rowCount === 0) {
+      for (let i = 0; i < dayNames.length; i++) {
+        let shiftName = dayNames[i];
+        await pool.query('insert into shifts(shift) values($1)', [shiftName])      
+      }
+    }   
+  }
+
   async function storeInDB(nameInput, daysInput) {
 
     if (nameInput == "" || daysInput == undefined) {
@@ -9,6 +21,8 @@
     if (daysInput && (typeof daysInput === 'string')) {
       daysInput = [daysInput];
     }
+
+    createShifts();
 
     let name = nameInput.toLowerCase();
 
@@ -73,6 +87,7 @@ async function resetWaiters(){
 }
 
 return {
+    createShifts,
     storeInDB,
     allShifts,
     getWaiterShifts,
