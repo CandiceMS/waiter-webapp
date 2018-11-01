@@ -35,7 +35,7 @@
       for (let i = 0; i < daysInput.length; i++) {
         let day = daysInput[i];
 
-        let selectShift = await pool.query('select shift from shifts where shift = $1', [day])
+        let selectShift = await pool.query('select id from shifts where shift = $1', [day])
         let shiftId = selectShift.rows[0].id;
 
         let waiter_Id = await pool.query('select id from waiters where waiter_name = $1', [name]);
@@ -72,8 +72,8 @@
         let findShift = await pool.query('select * from waiter_shifts where shift_id = $1', [dayId])
         for (let i = 0; i < findShift.length; i++) {
           let element = findShift[i];
-          let waiter = await pool.query('select waiter_name from waiters where id = $1', [element])
-          return waiter[0].rows
+          let waiter = await pool.query('select * from waiters where id = $1', [element])
+          return waiter[0].rows;
         }
       }
    };
