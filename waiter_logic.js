@@ -43,6 +43,11 @@
 
         await pool.query('insert into waiter_shifts(waiter_id, shift_id) values($1, $2)', [waiterId, shiftId])
       }
+      // ALTERNATIVE CODE TO SIMULTANEOUSLY INSERT VALUE AND RETURN IT'S ID:
+      // let results = await pool.query(`insert into categories (description)  
+      // values ($1)
+      // returning id, description`, data);
+      // return results.rows[0]
       return " Thank you " + nameInput + ". Your shifts have been saved"
     }
     else if(daysInput == '' || daysInput == false) {
