@@ -44,12 +44,10 @@ describe('Add and display waiters, shifts and their relation', function(){
           assert.equal(noAdd, 'Please make a selection from the available shifts');
     });
 
-
     it('should return all days', async function(){
       let shiftDays = await factoryLogic.allShifts();
       assert.deepEqual([{shift: 'monday'}, {shift: 'tuesday'}, {shift: 'wednesday'}, {shift: 'thursday'}, {shift: 'friday'}, {shift: 'saturday'}, {shift:'sunday'}], shiftDays);
     });
-
 
     it('should NOT add relevant values to the database as the requirements are incomplete', async function(){
         await factoryLogic.storeInDB('', 'sunday');
@@ -58,6 +56,15 @@ describe('Add and display waiters, shifts and their relation', function(){
         let shiftsEntered = await factoryLogic.allShifts();
         let waiterShifts = await factoryLogic.getWaiterShifts(shiftsEntered);
        assert.deepEqual(undefined, waiterShifts);
+    });
+
+    it('should return the names of all waiters for a selected day', async function(){
+      await factoryLogic.storeInDB('Jack', ['tuesday', 'wednesday']);
+      await factoryLogic.storeInDB('Jill', 'friday');
+      await factoryLogic.storeInDB('John', ['saturday', 'sunday']);
+      await factoryLogic.storeInDB('Sarah', ['thursday', 'monday', 'sunday']);
+      let selectedDay = await factoryLogic.getWaiterShifts('sunday');
+      assert.deepEqual(['john', 'sarah'], selectedDay);
     });
 
     it('should clear all values in the waiter_shifts table in the database', async function(){

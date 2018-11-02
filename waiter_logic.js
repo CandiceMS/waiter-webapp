@@ -60,22 +60,37 @@
       return days.rows;
    }
 
-   async function getWaiterShifts(shiftDays){
+   async function getWaiterShifts(shiftDay){
+    //  console.log(shiftDay);
     
-    let days = shiftDays.map(day => { return day.shift})
-// line above maps shifts to return an array of values. in this function, day is a placeholder for shiftDays.
+      // let days = shiftDay.map(day => { return day.shift})
+// line above maps shifts to return an array of object values. In this function, day is a placeholder for shiftDay.
 
-     for (let i = 0; i < days.length; i++) {
-       let day = days[i];
-        let findDay = await pool.query('select * from shifts where shift = $1', [day])
+    //  for (let i = 0; i < days.length; i++) {
+    //    let day = days[i];
+    //      console.log(day);
+
+    // if (shiftDay.isArray)
+
+
+        let findDay = await pool.query('select * from shifts where shift = $1', [shiftDay])
+        // console.log(findDay.rows);
         let dayId = findDay.rows[0].id;
-        let findShift = await pool.query('select * from waiter_shifts where shift_id = $1', [dayId])
+          // console.log(dayId);
+        let shiftRows = await pool.query('select * from waiter_shifts where shift_id = $1', [dayId]);
+        // console.log(shiftRows.rows);
+        let findShift = shiftRows.rows;
+        let holdWaiters = [];
         for (let i = 0; i < findShift.length; i++) {
           let element = findShift[i];
-          let waiter = await pool.query('select * from waiters where id = $1', [element])
-          return waiter[0].rows;
+           console.log(element);
+           console.log(element.waiter_id);
+          let waiter = await pool.query('select * from waiters where id = $1', [element.waiter_id])
+          let returnWaiter = waiter.rows[0];
+           holdWaiters.push(returnWaiter.waiter_name);
         }
-      }
+        return holdWaiters;
+      // }
    };
 
   async function resetWaiterShifts(){
