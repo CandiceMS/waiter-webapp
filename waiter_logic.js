@@ -66,14 +66,16 @@
       // let days = shiftDay.map(day => { return day.shift})
 // line above maps shifts to return an array of object values. In this function, day is a placeholder for shiftDay.
 
-    //  for (let i = 0; i < days.length; i++) {
-    //    let day = days[i];
+    
     //      console.log(day);
 
-    // if (shiftDay.isArray)
+    if (typeof shiftDay === 'string') {
+      shiftDay = [shiftDay];
 
-
-        let findDay = await pool.query('select * from shifts where shift = $1', [shiftDay])
+       for (let i = 0; i < shiftDay.length; i++) {
+       let day = shiftDay[i];
+    
+        let findDay = await pool.query('select * from shifts where shift = $1', [day])
         // console.log(findDay.rows);
         let dayId = findDay.rows[0].id;
           // console.log(dayId);
@@ -90,7 +92,8 @@
            holdWaiters.push(returnWaiter.waiter_name);
         }
         return holdWaiters;
-      // }
+      }
+    }
    };
 
   async function resetWaiterShifts(){
