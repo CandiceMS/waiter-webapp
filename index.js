@@ -64,3 +64,8 @@ app.get('/shifts', waiterRoutesFactory.returnWaiterShifts);
 //  app.get('/filter/:town_name', waiterRoutesFactory.filtered);
 
 app.post('/clear', waiterRoutesFactory.clear);
+
+
+// app.get('/waiter/:username);
+// const username = req.params.username;
+// res.render('waiter_shift', { username });     This is the route to get waiter name and persist shift entered

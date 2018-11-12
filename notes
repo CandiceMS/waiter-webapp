@@ -1,0 +1,14 @@
+use table to display shifts to be selected
+th as day name, tr + td as checkbox
+
+form action = /waiter/:{{username}}
+
+SEE Array.isArray(req.body.username) 
+
+"insert into " resolves error "id of undefined"
+pay attention to sequence of processing and async/await
+
+change value of day to it's id instead of day name
+
+also use:
+for(let weekday of weekdays)
