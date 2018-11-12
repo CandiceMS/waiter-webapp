@@ -55,7 +55,7 @@ describe('Add and display waiters, shifts and their relation', function(){
       await factoryLogic.storeInDB('John', ['saturday', 'sunday']);
       await factoryLogic.storeInDB('Sarah', ['thursday', 'monday', 'sunday']);
       let selectedDay = await factoryLogic.getWaiterShifts('sunday');
-      assert.deepEqual(['john', 'sarah'], selectedDay);
+      assert.deepEqual([{day: "sunday", waiter_name: ['john', 'sarah']}], selectedDay);
     });
 
     it('should clear all values in the waiter_shifts table in the database', async function(){

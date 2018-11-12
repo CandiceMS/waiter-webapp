@@ -43,11 +43,7 @@
 
         await pool.query('insert into waiter_shifts(waiter_id, shift_id) values($1, $2)', [waiterId, shiftId])
       }
-      // ALTERNATIVE CODE TO SIMULTANEOUSLY INSERT VALUE AND RETURN IT'S ID:
-      // let results = await pool.query(`insert into categories (description)  
-      // values ($1)
-      // returning id, description`, data);
-      // return results.rows[0]
+
       return " Thank you " + nameInput + ". Your shifts have been saved"
     }
     else if(daysInput == '' || daysInput == false) {
@@ -61,14 +57,7 @@
    }
 
    async function getWaiterShifts(shiftDay){
-    //  console.log(shiftDay);
-    
-      // let days = shiftDay.map(day => { return day.shift})
-// line above maps shifts to return an array of object values. In this function, day is a placeholder for shiftDay.
-
-    
-    //      console.log(day);
-
+    let holdWaiters = [];
     if (typeof shiftDay === 'string') {
       shiftDay = [shiftDay];
 
@@ -82,18 +71,30 @@
         let shiftRows = await pool.query('select * from waiter_shifts where shift_id = $1', [dayId]);
         // console.log(shiftRows.rows);
         let findShift = shiftRows.rows;
-        let holdWaiters = [];
+        // console.log(findShift);
+        
+        let mapName = [];
+        let map = {}
         for (let i = 0; i < findShift.length; i++) {
           let element = findShift[i];
-           console.log(element);
-           console.log(element.waiter_id);
-          let waiter = await pool.query('select * from waiters where id = $1', [element.waiter_id])
-          let returnWaiter = waiter.rows[0];
-           holdWaiters.push(returnWaiter.waiter_name);
+            // console.log(element);
+            // console.log(element.waiter_id);
+          let waiter = await pool.query('select waiter_name from waiters where id = $1', [element.waiter_id])
+          let returnWaiter = waiter.rows[0].waiter_name;
+           mapName.push(returnWaiter);
+          //  console.log(holdWaiters);
         }
-        return holdWaiters;
+        if(map.day === undefined){
+          map = {
+            day : day,
+            waiter_name : mapName
+          }
+        }
+        holdWaiters.push(map);
       }
+      console.log(holdWaiters);
     }
+    return holdWaiters;
    };
 
   async function resetWaiterShifts(){
@@ -119,7 +120,22 @@ return {
     resetWaiters
   }
 }
+
+      // ALTERNATIVE CODE TO SIMULTANEOUSLY INSERT VALUE AND RETURN IT'S ID:
+      // let results = await pool.query(`insert into categories (description)  
+      // values ($1)
+      // returning id, description`, data);
+      // return results.rows[0]
+
+
+      // let days = shiftDay.map(day => { return day.shift})
+// line above maps shifts to return an array of object values. In this function, day is a placeholder for shiftDay.
   
+// Query to join tables for rendering:
+// SELECT character.name, character_actor.actor_name
+// FROM character 
+// INNER JOIN character_actor
+// ON character.id = character_actor.character_id;
 
 
       
