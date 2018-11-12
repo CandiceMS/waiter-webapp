@@ -1,15 +1,25 @@
 {{{body}}}
 
-<div class="days">
   <h4>Here are all waiter shifts for the week:</h4>
- <table>
-     <tr {{#each waiter_shifts}}>
-         <th>{{day}}</th>
-         {{/each}}
-    </tr>
-    <tr{{#each waiter_shifts}}>
-        <td>{{waiter_name}}</td>
-        {{/each}}
-    </tr>
- </table>
+  <div class="renderAdmin">
+    <table>
+        <tr>
+            {{#each waiter_shifts}}
+            <th>
+                {{day}}
+            </th>
+            {{/each}}
+        </tr>
+        <tr>
+            {{#each waiter_shifts}}
+            <td>
+                <ul>
+                    {{#each waiter_name}}
+                    {{.}}
+                    {{/each}}
+                </ul>
+            </td>
+            {{/each}}
+        </tr>
+    </table>
 </div>

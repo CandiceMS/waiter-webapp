@@ -77,4 +77,8 @@ fieldset {
   margin-right: 50%;
 }
 
+.renderAdmin {
+  text-transform: capitalize;
+}
+
 

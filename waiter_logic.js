@@ -65,34 +65,29 @@
        let day = shiftDay[i];
     
         let findDay = await pool.query('select * from shifts where shift = $1', [day])
-        // console.log(findDay.rows);
         let dayId = findDay.rows[0].id;
-          // console.log(dayId);
         let shiftRows = await pool.query('select * from waiter_shifts where shift_id = $1', [dayId]);
-        // console.log(shiftRows.rows);
         let findShift = shiftRows.rows;
-        // console.log(findShift);
         
         let mapName = [];
         let map = {}
+
         for (let i = 0; i < findShift.length; i++) {
           let element = findShift[i];
-            // console.log(element);
-            // console.log(element.waiter_id);
           let waiter = await pool.query('select waiter_name from waiters where id = $1', [element.waiter_id])
           let returnWaiter = waiter.rows[0].waiter_name;
            mapName.push(returnWaiter);
-          //  console.log(holdWaiters);
         }
-        if(map.day === undefined){
+         if(map.day === undefined){
           map = {
             day : day,
             waiter_name : mapName
           }
-        }
+         }
+
         holdWaiters.push(map);
       }
-      console.log(holdWaiters);
+      // console.log(holdWaiters);
     }
     return holdWaiters;
    };
@@ -128,14 +123,14 @@ return {
       // return results.rows[0]
 
 
-      // let days = shiftDay.map(day => { return day.shift})
-// line above maps shifts to return an array of object values. In this function, day is a placeholder for shiftDay.
+    // let days = shiftDay.map(day => { return day.shift})
+    // line above maps shifts to return an array of object values. In this function, day is a placeholder for shiftDay.
   
-// Query to join tables for rendering:
-// SELECT character.name, character_actor.actor_name
-// FROM character 
-// INNER JOIN character_actor
-// ON character.id = character_actor.character_id;
+  // Query to join tables for rendering (inner join):
+  // SELECT character.name, character_actor.actor_name
+  // FROM character 
+  // INNER JOIN character_actor
+  // ON character.id = character_actor.character_id;
 
 
       
