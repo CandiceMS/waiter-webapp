@@ -58,13 +58,13 @@
 
    async function getWaiterShifts(shiftDay){
     let holdWaiters = [];
-    if (typeof shiftDay === 'string') {
-      shiftDay = [shiftDay];
+    //if (typeof shiftDay === 'string') {
+    //  shiftDay = [shiftDay];
 
        for (let i = 0; i < shiftDay.length; i++) {
        let day = shiftDay[i];
     
-        let findDay = await pool.query('select * from shifts where shift = $1', [day])
+        let findDay = await pool.query('select * from shifts where shift = $1', [day.shift])
         let dayId = findDay.rows[0].id;
         let shiftRows = await pool.query('select * from waiter_shifts where shift_id = $1', [dayId]);
         let findShift = shiftRows.rows;
@@ -80,15 +80,15 @@
         }
          if(map.day === undefined){
           map = {
-            day : day,
+            day : day.shift,
             waiter_name : mapName
           }
          }
 
         holdWaiters.push(map);
       }
-      // console.log(holdWaiters);
-    }
+      //  console.log(holdWaiters);
+    //}
     return holdWaiters;
    };
 
