@@ -7,7 +7,7 @@ create table shifts(
 
 create table waiters (
     id serial not null primary key,
-    waiter_name text not null
+    waiter_name text not null unique
 );
 
 create table waiter_shifts(

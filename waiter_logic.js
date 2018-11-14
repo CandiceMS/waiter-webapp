@@ -92,6 +92,7 @@
     return holdWaiters;
    };
 
+
   async function resetWaiterShifts(){
       let reset = await pool.query('delete from waiter_shifts');
       return reset.rows;

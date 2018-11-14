@@ -82,3 +82,29 @@ fieldset {
 }
 
 
+h3 {
+  text-indent: 2rem;
+}
+table {
+  border: 4px solid green;
+  border-radius: 2px;
+}
+
+li {
+  list-style: none;
+  text-align: left;
+  padding-right: 2rem;
+  padding-top: 1rem;
+}
+
+td, th {
+  border: 1px solid grey;
+  border-collapse: collapse;
+}
+th {
+  font-size: 18px;
+}
+
+
+
+
